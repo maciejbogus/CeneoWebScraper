@@ -1,0 +1,8 @@
+{% extends "base.html.jinja"%}
+{% block content %}
+    <form action="{{url_for('extract')}}", method="POST">
+        <label>Pobierz produkt nr</label><br>
+        <input type="text" name="product_id"><br>
+        <button type=submit value=poboerz>pobierz</button>
+    </form>
+{% endblock %}

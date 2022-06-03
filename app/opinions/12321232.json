@@ -1,0 +1,93 @@
+[
+    {
+        "author": "daniello04",
+        "recomendation": "Polecam",
+        "stars": "5/5",
+        "content": "piękne płytki o głębokim kolorze",
+        "pros": [],
+        "cons": [],
+        "usefull": "1",
+        "useless": "0",
+        "publish_date": "2014-02-05 13:30:33",
+        "purchase_date": "2014-01-22 17:07:41",
+        "opinion_id": "2446527"
+    },
+    {
+        "author": "Użytkownik Ceneo",
+        "recomendation": "Polecam",
+        "stars": "5/5",
+        "content": "zgodne z zamówieniem",
+        "pros": [],
+        "cons": [],
+        "usefull": "0",
+        "useless": "0",
+        "publish_date": "2014-09-17 22:20:42",
+        "purchase_date": "2014-09-03 09:41:01",
+        "opinion_id": "2732462"
+    },
+    {
+        "author": "Użytkownik Ceneo",
+        "recomendation": "Polecam",
+        "stars": "5/5",
+        "content": "Towar zgodny z opisem. bardzo dobrej jakości. Polecam!",
+        "pros": [],
+        "cons": [],
+        "usefull": "0",
+        "useless": "0",
+        "publish_date": "2013-08-05 11:00:43",
+        "purchase_date": null,
+        "opinion_id": "2174344"
+    },
+    {
+        "author": "Użytkownik Ceneo",
+        "recomendation": null,
+        "stars": "4,5/5",
+        "content": "4,5/5",
+        "pros": [],
+        "cons": [],
+        "usefull": "0",
+        "useless": "0",
+        "publish_date": "2019-10-14 00:00:00",
+        "purchase_date": null,
+        "opinion_id": "6173154"
+    },
+    {
+        "author": "Użytkownik Ceneo",
+        "recomendation": null,
+        "stars": "4/5",
+        "content": "4,0/5",
+        "pros": [],
+        "cons": [],
+        "usefull": "0",
+        "useless": "0",
+        "publish_date": "2019-09-20 00:00:00",
+        "purchase_date": null,
+        "opinion_id": "5341453"
+    },
+    {
+        "author": "Użytkownik Ceneo",
+        "recomendation": null,
+        "stars": "4,5/5",
+        "content": "4,5/5",
+        "pros": [],
+        "cons": [],
+        "usefull": "0",
+        "useless": "0",
+        "publish_date": "2019-02-19 00:00:00",
+        "purchase_date": null,
+        "opinion_id": "5341482"
+    },
+    {
+        "author": "Użytkownik Ceneo",
+        "recomendation": null,
+        "stars": "4/5",
+        "content": "4,0/5",
+        "pros": [],
+        "cons": [],
+        "usefull": "0",
+        "useless": "0",
+        "publish_date": "2019-01-31 00:00:00",
+        "purchase_date": null,
+        "opinion_id": "6885105"
+    }
+]

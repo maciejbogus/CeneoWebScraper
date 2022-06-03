@@ -3,7 +3,7 @@
     <ul class="list-group">
     {% for product in products %}
         <li class="list-group-item">
-            {{product}}
+            <a href=product/{{product}}>{{product}}</a>
             <span class="badge bg-primary rounded-pill">{{loop.index}}</span>
         </li>
         {% endfor %}
