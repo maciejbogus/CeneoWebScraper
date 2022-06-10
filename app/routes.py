@@ -7,6 +7,7 @@ import json
 import os
 import pandas as pd
 import matplotlib.pyplot as plt
+from app.models.product import Product
 
 @app.route('/')
 def index():
@@ -16,35 +17,9 @@ def index():
 def extract():
     if request.method == "POST":
         product_id = request.form.get("product_id")
-        url = f"https://www.ceneo.pl/{product_id}#tab=reviews"
-        all_opinions = []
-
-        while(url):
-            response = requests.get(url)
-            # print(response.status_code) // jak 200 to działa
-
-            page = BeautifulSoup(response.text, "html.parser")
-
-            opinions = page.select("div.js_product-review")
-
-            for  opinion in opinions:
-                
-                single_opinion = {
-                    key:get_item(opinion, *value)
-                        for key, value in selectors.items()
-                }
-                
-                single_opinion["opinion_id"] = opinion["data-entry-id"]
-                
-                all_opinions.append(single_opinion)
-            
-            try:
-                url = "https://www.ceneo.pl" + get_item(page, "a.pagination__next", "href")
-            except TypeError:
-                url = None
-
-        with open(f"opinions\{product_id}.json", "w", encoding="UTF-8") as file:
-            json.dump(all_opinions, file, indent=4, ensure_ascii=False)
+        product = Product(product_id)
+        product.extract_product()
+        
         return redirect(url_for("product", product_id = product_id))
     else:
         return render_template("extract.html.jinja")
@@ -64,12 +39,12 @@ def product(product_id):
     opinions = pd.read_json(f"opinions/{product_id}.json")
     print(opinions)
     opinions.stars = opinions.stars.map(lambda x: float(x.split("/")[0].replace(",", ".")))
-    opinions_count = len(opinions.index)
-    stats = {
-        "pros_count" : opinions.pros.map(bool).sum(),
-        "cons_count" : opinions.cons.map(bool).sum(),
-        "avarage_score" : opinions.stars.mean().round(2)
-    }
+    # opinions_count = len(opinions.index)
+    # stats = {
+    #     "pros_count" : opinions.pros.map(bool).sum(),
+    #     "cons_count" : opinions.cons.map(bool).sum(),
+    #     "avarage_score" : opinions.stars.mean().round(2)
+    # }
 
     recommendation = opinions.recomendation.value_counts(dropna = False)
     recommendation.plot.pie(
