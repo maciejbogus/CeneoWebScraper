@@ -1,17 +1,21 @@
 from app import app
 from flask import render_template, redirect, url_for, request
-from urllib import response
-from bs4 import BeautifulSoup
 import requests
 import json
+from bs4 import BeautifulSoup
 import os
 import pandas as pd
-import matplotlib.pyplot as plt
+import numpy as np
+from matplotlib import pyplot as plt
 from app.models.product import Product
+
+
+
+
 
 @app.route('/')
 def index():
-    return render_template("index.html")
+    return render_template("index.html.jinja")
 
 @app.route('/extract', methods=["POST", "GET"])
 def extract():
@@ -20,7 +24,8 @@ def extract():
         product = Product(product_id)
         product.extract_product()
         
-        return redirect(url_for("product", product_id = product_id))
+        
+        return redirect(url_for("product", product_id=product_id))
     else:
         return render_template("extract.html.jinja")
 
@@ -33,35 +38,29 @@ def products():
 def author():
     return render_template("author.html.jinja")
 
-
 @app.route('/product/<product_id>')
 def product(product_id):
-    opinions = pd.read_json(f"opinions/{product_id}.json")
-    print(opinions)
+    opinions = pd.read_json(f"app/opinions/{product_id}.json")
     opinions.stars = opinions.stars.map(lambda x: float(x.split("/")[0].replace(",", ".")))
-    # opinions_count = len(opinions.index)
-    # stats = {
-    #     "pros_count" : opinions.pros.map(bool).sum(),
-    #     "cons_count" : opinions.cons.map(bool).sum(),
-    #     "avarage_score" : opinions.stars.mean().round(2)
-    # }
-
-    recommendation = opinions.recomendation.value_counts(dropna = False)
+    
+    recommendation = opinions.recommendation.value_counts(dropna = False).sort_index().reindex(["Nie polecam", "Polecam", None])
     recommendation.plot.pie(
         label="", 
         autopct="%1.1f%%", 
-        colors=["green", "blue", "red"]
+        colors=["crimson", "forestgreen", "lightskyblue"],
+        labels=["Nie polecam", "Polecam", "Nie mam zdania"]
     )
     plt.title("Rekomendacja")
-    plt.savefig(f"plots/{product_id}_recomendations.png")
+    plt.savefig(f"app/static/plots/{product_id}_recommendations.png")
     plt.close()
 
-    stars = opinions.stars.value_counts()
+    stars = opinions.stars.value_counts().sort_index().reindex(list(np.arange(0,5.5,0.5)), fill_value=0)
     stars.plot.bar()
-    plt.title("Ocenty produktów")
+    plt.title("Oceny produktu")
     plt.xlabel("Liczba gwiazdek")
     plt.ylabel("Liczba opinii")
     plt.grid(True)
     plt.xticks(rotation=0)
-    plt.show()
-    return render_template("product.html.jinja", product_id=product_id, stats=stats, opinions=opinions)
+    plt.savefig(f"app/static/plots/{product_id}_stars.png")
+    plt.close()
+    return render_template("product.html.jinja", stats=stats, product_id=product_id, opinions=opinions)
