@@ -5,7 +5,7 @@ from app.models.product import Product
 
 @app.route('/')
 def index():
-    return render_template("index.html.jinja")
+    return render_template("readme.html.jinja")
 
 @app.route('/extract', methods=["POST", "GET"])
 def extract():

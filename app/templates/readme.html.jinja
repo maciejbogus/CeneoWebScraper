@@ -1,0 +1,113 @@
+{% extends 'base.html.jinja' %}
+{% block content %}<h1>CeneoWebScraper</h1>
+<table>
+<thead>
+<tr>
+<th>SKLADOWA</th>
+<th>SELEKTOR</th>
+<th>NAZWA ZMIENNEJ</th>
+<th>TYP ZMIENNEJ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>opinia</td>
+<td>div.js_product-review</td>
+<td>opinion</td>
+<td>obj</td>
+</tr>
+<tr>
+<td>identyfikator opinii</td>
+<td>div.js_product-review["data-entry-id"]</td>
+<td>opinion_id</td>
+<td>str</td>
+</tr>
+<tr>
+<td>autor opinii</td>
+<td>span.user-post__author-name</td>
+<td>author</td>
+<td>str</td>
+</tr>
+<tr>
+<td>rekomendacja</td>
+<td>span.user-post__author-recomendation &gt; em</td>
+<td>recomendation</td>
+<td>str</td>
+</tr>
+<tr>
+<td>liczba gwiazdek</td>
+<td>span.user-post__score-count</td>
+<td>stars</td>
+<td>string</td>
+</tr>
+<tr>
+<td>tresc opinii</td>
+<td>div.user-post__text</td>
+<td>content</td>
+<td>str</td>
+</tr>
+<tr>
+<td>lista zalet</td>
+<td>div[class?="positives"]~ div.review-feature__item</td>
+<td>pros</td>
+<td>list</td>
+</tr>
+<tr>
+<td>lista wad</td>
+<td>div[class?="negatives"]~ div.review-feature__item</td>
+<td>cons</td>
+<td>list</td>
+</tr>
+<tr>
+<td>dla ilu osob przydatna</td>
+<td>span[id^="votes-yes"]</td>
+<td>usefull</td>
+<td>int</td>
+</tr>
+<tr>
+<td>dla ilu osob nieprzydatna</td>
+<td>span[id^="votes-no"]</td>
+<td>useless</td>
+<td>int</td>
+</tr>
+<tr>
+<td>data wystawienia opinii</td>
+<td>user-post__published &gt; time:nth-child(1)["datetime"]</td>
+<td>publish_date</td>
+<td>date</td>
+</tr>
+<tr>
+<td>data zakupu</td>
+<td>user-post__published &gt; time:nth-child(1)["datetime"]</td>
+<td>purchase_date</td>
+<td>date</td>
+</tr>
+</tbody>
+</table>
+<h2>ETAPY PRACY</h2>
+<ol>
+<li>Pobieranie pojedynczych zmiennych skladowych danej opinii</li>
+<li>Zapisanie wszystkich skladowych danej opinii do slownika</li>
+<li>Pobranie wszystkich opinii o danym produkcie</li>
+<li>Zapisanie wzystkich opinii do pliku .json</li>
+<li>Zaktualizowanie kodu o mozliwosc wskazania konkretnego produktu przez uzytkownika</li>
+<li>Optymalizacja kodu:
+    a. Utworzenie funkcji do ekstrakcji elementow skladowych
+    b. Utworzenie slownika selektorow
+    c. Uzycie dictionary comprehension do pobrania skladowych opjedynczej opinii na podstawie slownika selektorow</li>
+<li>Stworzenie witryny interentowej z odpowiednimi podstronami i hosting za pomoca Flask</li>
+<li>Dodanie systemu analizy pobranych danych:
+    a. Wyliczenie dancyh statystycznych
+    b. Kod tworzacy grafy na podstawie wygenerowanych danych
+    c. Zapisanie statystyk do plikow .json i grafow do plikow .png</li>
+<li>Wyswietlenie statystyk i grafow na stronie w odpowiednich podstronach</li>
+</ol>
+<h2>BIBLIOTEKI</h2>
+<p>bs4 - pakiet do analizowania dokumentow HTML i XML
+flask - mikro framework aplikacji webowych napisany w jezyku Python
+requests - biblioteka HTTP dla jezyka programowania Python. Celem projektu jest uczynienie zadan HTTP prostszymi i bardziej przyjaznymi dla czlowieka.
+pandas - biblioteka do manipulacji i analizy danych
+numpy - Obsluga tabel struktury danych i operacje sluzace do manipulowania tabelami liczbowymi i szeregami czasowymi
+json - obsluga plikow z rozszerzeniem .json
+matplotlib - biblioteka do tworzenia wykresow dla jezyka programowania Python
+markdown - praser do jezyka markdown</p>{% endblock %}
